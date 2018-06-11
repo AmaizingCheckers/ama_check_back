@@ -1,0 +1,2 @@
+class HistoryStudent < ApplicationRecord
+end

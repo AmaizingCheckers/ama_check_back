@@ -4,8 +4,14 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :classrooms, only: [:index, :show] do
       end
-      
+
       resources :subjects, only: [:index, :show] do
+      end
+
+      resources :histories, only: [] do
+        collection do
+          post :attendance_result
+        end
       end
     end
   end
