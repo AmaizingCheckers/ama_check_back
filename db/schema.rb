@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522064058) do
+ActiveRecord::Schema.define(version: 20180604035516) do
 
   create_table "classrooms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -21,13 +21,21 @@ ActiveRecord::Schema.define(version: 20180522064058) do
   end
 
   create_table "histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "timestamp"
-    t.integer  "student_id"
+    t.datetime "timestamp",  default: -> { "CURRENT_TIMESTAMP" }
     t.integer  "subject_id"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "image_name"
+    t.index ["subject_id"], name: "index_histories_on_subject_id", using: :btree
+  end
+
+  create_table "history_students", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "history_id"
+    t.integer  "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_histories_on_student_id", using: :btree
-    t.index ["subject_id"], name: "index_histories_on_subject_id", using: :btree
+    t.index ["history_id"], name: "index_history_students_on_history_id", using: :btree
+    t.index ["student_id"], name: "index_history_students_on_student_id", using: :btree
   end
 
   create_table "schools", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -95,8 +103,9 @@ ActiveRecord::Schema.define(version: 20180522064058) do
   end
 
   add_foreign_key "classrooms", "schools"
-  add_foreign_key "histories", "students"
   add_foreign_key "histories", "subjects"
+  add_foreign_key "history_students", "histories"
+  add_foreign_key "history_students", "students"
   add_foreign_key "student_images", "students"
   add_foreign_key "subject_students", "students"
   add_foreign_key "subject_students", "subjects"

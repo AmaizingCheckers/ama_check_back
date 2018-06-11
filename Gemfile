@@ -41,3 +41,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'active_model_serializers'
+gem 'carrierwave'
+gem 'carrierwave-ftp', :require => 'carrierwave/storage/ftp/all'
+
+gem 'dotenv-rails'
