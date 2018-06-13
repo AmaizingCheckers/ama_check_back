@@ -10,7 +10,13 @@ Rails.application.routes.draw do
 
       resources :histories, only: [] do
         collection do
-          post :attendance_result
+          post :attendance_image_upload
+        end
+      end
+
+      resources :history_students, only: [] do
+        collection do
+          get :attendance_result
         end
       end
     end
