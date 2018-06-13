@@ -1,4 +1,3 @@
-require "open3"
 class Api::V1::HistoriesController < ApplicationController
   before_action :set_history, only: [:show, :update, :destroy]
 
@@ -39,8 +38,8 @@ class Api::V1::HistoriesController < ApplicationController
   #   @history.destroy
   # end
 
-  # POST /api/v1/histories/attendance_result
-  def attendance_result
+  # POST /api/v1/histories/attendance_image_upload
+  def attendance_image_upload
     raise 'params not found' if params[:subject_id].blank? || params[:image].blank?
 
     history = History.new
@@ -48,8 +47,7 @@ class Api::V1::HistoriesController < ApplicationController
     history.image_name = params[:image]
     history.save!
 
-    # TODO: net/httpsを使ってhttpリクエストを投げる処理の追加
-
+    render json: history
   end
 
   private
