@@ -1,6 +1,6 @@
 FROM alpine:3.4
 
-ENV RUNTIME_PACKAGES="ruby ruby-irb ruby-json ruby-rake ruby-bigdecimal ruby-io-console ruby-dev libxml2-dev libxslt-dev libstdc++ tzdata mariadb-client-libs nodejs ca-certificates imagemagick-dev graphviz"\
+ENV RUNTIME_PACKAGES="ruby ruby-irb ruby-json ruby-rake ruby-bigdecimal ruby-io-console ruby-dev libxml2-dev libxslt-dev libstdc++ tzdata mariadb-client-libs nodejs ca-certificates imagemagick-dev graphviz git"\
     DEV_PACKAGES="build-base mysql-dev"
 
 RUN apk add --update --no-cache $RUNTIME_PACKAGES && \
