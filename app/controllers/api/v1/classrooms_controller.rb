@@ -1,5 +1,6 @@
 class Api::V1::ClassroomsController < ApplicationController
   before_action :set_classroom, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user!
 
   # GET /api/v1/classrooms
   def index

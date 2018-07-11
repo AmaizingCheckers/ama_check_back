@@ -3,6 +3,7 @@ require 'json'
 
 class Api::V1::HistoryStudentsController < ApplicationController
   before_action :set_history_student, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user!
 
   # GET /api/v1/history_students
   # def index

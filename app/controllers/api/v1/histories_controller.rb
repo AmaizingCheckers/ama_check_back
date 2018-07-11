@@ -1,5 +1,6 @@
 class Api::V1::HistoriesController < ApplicationController
   before_action :set_history, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user!
 
   # GET /api/v1/histories
   # def index
@@ -42,8 +43,7 @@ class Api::V1::HistoriesController < ApplicationController
   def attendance_image_upload
     raise 'params not found' if params[:subject_id].blank? || params[:image].blank?
 
-    history = History.new
-    history.subject_id = params[:subject_id]
+    history = History.create(subject_id: params[:subject_id])
     history.image_name = params[:image]
     history.save!
 
