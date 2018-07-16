@@ -50,6 +50,13 @@ class Api::V1::HistoryStudentsController < ApplicationController
     render json: history_student
   end
 
+  # GET /api/v1/history_students/attendance_history_result?history_id=history_id
+  def attendance_history_result
+    history_id = params["history_id"]
+    history_student = HistoryStudent.where(history_id: history_id)
+    render json: history_student
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_history_student
