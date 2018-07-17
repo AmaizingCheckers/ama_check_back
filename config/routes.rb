@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :history_students, only: [] do
         collection do
           get :attendance_result
+          get :attendance_history_result
         end
       end
 
