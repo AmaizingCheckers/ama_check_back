@@ -1,3 +1,3 @@
 class HistoryStudent < ApplicationRecord
-  has_many :students, foreign_key: :id
+  has_many :students, primary_key: :student_id
 end
