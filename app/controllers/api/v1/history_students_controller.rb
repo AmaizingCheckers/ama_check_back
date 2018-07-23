@@ -18,15 +18,15 @@ class Api::V1::HistoryStudentsController < ApplicationController
   # end
 
   # POST /api/v1/history_students
-  # def create
-  #   @history_student = HistoryStudent.new(history_student_params)
+  def create
+    @history_student = HistoryStudent.new(history_student_params)
 
-  #   if @history_student.save
-  #     render json: @history_student, status: :created, location: @history_student
-  #   else
-  #     render json: @history_student.errors, status: :unprocessable_entity
-  #   end
-  # end
+    if @history_student.save
+      render json: @history_student, status: :created
+    else
+      render json: @history_student.errors, status: :unprocessable_entity
+    end
+  end
 
   # PATCH/PUT /api/v1/history_students/1
   # def update
@@ -52,8 +52,7 @@ class Api::V1::HistoryStudentsController < ApplicationController
 
   # GET /api/v1/history_students/attendance_history_result?history_id=history_id
   def attendance_history_result
-    history_id = params["history_id"]
-    history_student = HistoryStudent.where(history_id: history_id)
+    history_student = HistoryStudent.where(history_id: params["history_id"])
     render json: history_student
   end
 
@@ -65,9 +64,10 @@ class Api::V1::HistoryStudentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def history_student_params
-      params.require(:history)
+      params.fetch(:history_student, {})
         .permit(
-          :history_id
+          :history_id,
+          :student_id
         )
     end
 end

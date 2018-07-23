@@ -10,9 +10,9 @@ class Api::V1::HistoriesController < ApplicationController
   # end
 
   # GET /api/v1/histories/1
-  # def show
-  #   render json: @history
-  # end
+  def show
+    render json: @history
+  end
 
   # POST /api/v1/histories
   # def create
@@ -39,12 +39,19 @@ class Api::V1::HistoriesController < ApplicationController
   #   @history.destroy
   # end
 
+  # GET /api/v1/histories/refine_by_teacher
+  def refine_by_teacher
+    history = History.where(teacher_id: current_api_v1_user)
+    render json: history
+  end
+
   # POST /api/v1/histories/attendance_image_upload
   def attendance_image_upload
     raise 'params not found' if params[:subject_id].blank? || params[:image].blank?
 
-    history = History.create(subject_id: params[:subject_id])
+    history = History.create(subject_id: params[:subject_id], teacher_id: current_api_v1_user.id)
     history.image_name = params[:image]
+    history.timestamp = Time.now
     history.save!
 
     render json: history

@@ -12,13 +12,14 @@ Rails.application.routes.draw do
       resources :subjects, only: [:index, :show] do
       end
 
-      resources :histories, only: [] do
+      resources :histories, only: [:show] do
         collection do
+          get :refine_by_teacher
           post :attendance_image_upload
         end
       end
 
-      resources :history_students, only: [] do
+      resources :history_students, only: [:create] do
         collection do
           get :attendance_result
           get :attendance_history_result
@@ -29,6 +30,18 @@ Rails.application.routes.draw do
         collection do
           get :search_teacher
         end
+      end
+
+      resources :subject_students, only: [:index, :show, :create, :destroy] do
+        collection do
+          get :find_by_subject
+        end
+      end
+
+      resources :students, only: [:index, :show, :create, :update] do
+      end
+
+      resources :student_images, only: [:index, :show, :create, :destroy] do
       end
     end
   end
